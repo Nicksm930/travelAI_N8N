@@ -19,13 +19,13 @@ const Home = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/places', {
+      await fetch('/api/places', {
         method: 'POST',
         body: JSON.stringify(formField),
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const data = await response.json();
+      // const data = await response.json();
 
       // Navigate to results page with query params or state
       router.push(`/places?city=${formField.city}&country=${formField.country}`);
