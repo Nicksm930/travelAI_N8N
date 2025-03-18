@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const url = `http://localhost:5678/webhook/b432fd00-d434-4be2-acd3-f6915f5dc66a?city=${data.city}&country=${data.country}`;
+    const url = `https://nick07.app.n8n.cloud/webhook/places?city=${data.city}&country=${data.country}`;
     
         const response = await fetch(url, {
           method: "GET",

@@ -51,7 +51,9 @@ const PlacesContent = () => {
         }
 
         const result = await response.json();
-        setData(result.output[0].output);
+        console.log(result.output);
+        
+        setData(result.output);
       } catch (error) {
         console.error('Failed to fetch:', error);
         setError('Failed to load travel information. Please try again later.');
@@ -109,7 +111,66 @@ const PlacesContent = () => {
           </h1>
           <p className="text-lg text-slate-300 font-montserrat">Discover the best places, food, and local tips</p>
         </div>
-        {/* Render all content sections here */}
+
+        {/* Places Section */}
+        <section className="mb-12 animate-fade-in">
+          <h2 className="text-3xl text-white font-bold mb-6 font-playfair">Top Places to Visit</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.places.map((place, index) => (
+              <div
+                key={index}
+                className="bg-slate-800/70 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
+              >
+                <img
+                  src={place.imgUrl}
+                  alt={place.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-2xl text-white font-bold mb-2 font-playfair">{place.name}</h3>
+                  <p className="text-slate-300 mb-4 font-montserrat">{place.description}</p>
+                  <p className="text-sm text-slate-400">
+                    <strong>Category:</strong> {place.category} <br />
+                    <strong>Recommended Time:</strong> {place.recommended_time} <br />
+                    <strong>Entry Fee:</strong> {place.entry_fee} <br />
+                    <strong>Tip:</strong> {place.tips}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Cuisine Section */}
+        <section className="mb-12 animate-fade-in">
+          <h2 className="text-3xl text-white font-bold mb-6 font-playfair">Must-Try Local Cuisine</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.local_cuisine.map((cuisine, index) => (
+              <div
+                key={index}
+                className="bg-slate-800/70 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300"
+              >
+                <h3 className="text-2xl text-white font-bold mb-2 font-playfair">{cuisine.dish}</h3>
+                <p className="text-slate-300 mb-2 font-montserrat">{cuisine.description}</p>
+                <p className="text-sm text-slate-400">
+                  <strong>Recommended Place:</strong> {cuisine.recommended_place}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Travel Tips Section */}
+        <section className="animate-fade-in">
+          <h2 className="text-3xl text-white font-bold mb-6 font-playfair">Travel Tips</h2>
+          <ul className="space-y-4 list-disc list-inside text-slate-300 font-montserrat">
+            {data.travel_tips.map((tip, index) => (
+              <li key={index} className="bg-slate-800/70 p-4 rounded-xl shadow-md">
+                {tip}
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </div>
   );
